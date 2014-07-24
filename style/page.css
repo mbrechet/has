@@ -1,0 +1,13 @@
+.infoZone{
+	border: 1px solid black;
+	width:512px;
+	height:288px;
+	float:left;
+}
+
+.videoZone{
+	width:512px;
+	height:288px;
+	float:left;
+	background-color:black;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HAS Player v1</title>
+	<link rel="stylesheet" type="text/css" href="style/page.css">
+	<script type="text/javascript" src="node_modules/q/q.js"></script>
+	<script type="text/javascript" src="app/manifestLoader.js"></script>
+	<script type="text/javascript" src="app/player.js"></script>
+</head>
+<body>
+Exemple de player HAS
+
+<label>Entrer une url de flux : <input type="text" id="content" placeholder="http://"/> </label>
+<button onclick="load()">Lire</button>
+<br>
+<div class="infoZone">
+
+</div>
+<video class="videoZone" controls="true"></video>
+
+<script type="text/javascript">
+	function load(){
+		var url = document.getElementById("content").value;
+
+		var manifestLoader = new ManifestLoader();
+		manifestLoader.load(url);
+	}
+
+</script>
+</body>
+</html>

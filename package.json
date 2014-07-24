@@ -1,0 +1,25 @@
+{
+  "name": "has",
+  "version": "0.0.0",
+  "description": "has player",
+  "main": "app/player.js",
+  "private":true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mbrechet/has.git"
+  },
+  "keywords": [
+    "javascipt",
+    "has",
+    "player"
+  ],
+  "author": "mbrechet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mbrechet/has/issues"
+  },
+  "homepage": "https://github.com/mbrechet/has",
+  "dependencies": {
+    "q": "^1.0.1"
+  }
+}
