@@ -1,6 +1,6 @@
-ManifestLoader = function(){
+var ManifestLoader = function(){
 	this.manifest = null;
-}
+};
 
 ManifestLoader.prototype.load = function(/*url*/ url){
 	var xhr = new XMLHttpRequest();
@@ -8,20 +8,18 @@ ManifestLoader.prototype.load = function(/*url*/ url){
 	xhr.open("GET",url,true);
 	xhr.responseType =	"text";
 	xhr.onload = (function(){
-		deferred = this.onHaveManifest(xhr.response);
+		this.onHaveManifest(xhr.response);
+		deferred.resolve(this.manifest);
 	}).bind(this);
 	xhr.send();
 	return deferred.promise;
-}
+};
 
 ManifestLoader.prototype.onHaveManifest = function(data) {
 	
-	var deferred = Q.defer();
 	var parser =  new DOMParser();
 	var xmlManifest = parser.parseFromString(data,"text/xml",0);
-	console.info("data ::: ",xmlManifest);		
-	deferred.resolve(xmlManifest);
-	return deferred.promise;
+	this.manifest  = xml2json(xmlManifest)["#document"];	
 };
 
 ManifestLoader.prototype.onError = function(e) {
