@@ -4,26 +4,44 @@
 	<title>HAS Player v1</title>
 	<link rel="stylesheet" type="text/css" href="style/page.css">
 	<script type="text/javascript" src="node_modules/q/q.js"></script>
+	<script type="text/javascript" src="node_modules/jquery-xml2json/src/xml2json.js"></script>
 	<script type="text/javascript" src="app/manifestLoader.js"></script>
 	<script type="text/javascript" src="app/player.js"></script>
 </head>
 <body>
-Exemple de player HAS
+<h1>Exemple de player HAS</h1>
+<br/>
 
-<label>Entrer une url de flux : <input type="text" id="content" placeholder="http://"/> </label>
-<button onclick="load()">Lire</button>
+<ul>
+	<li><label>Entrer une url d'un manifest : <input type="text" id="manifest" placeholder="http://"/> </label><button onclick="loadManifest()">Lire le manifest</button>
+</ul>
+
 <br>
+
+<section id="manifestInfo">
+	Liste des qualités vidéos
+	Liste des pistes audio
+	Liste des sous-titres
+	Url de la drm ?
+
+</section>
+
+
 <div class="infoZone">
 
 </div>
 <video class="videoZone" controls="true"></video>
 
 <script type="text/javascript">
-	function load(){
-		var url = document.getElementById("content").value;
+	function loadManifest(){
+		var url = document.getElementById("manifest").value;
 
 		var manifestLoader = new ManifestLoader();
-		manifestLoader.load(url);
+
+		manifestLoader.load(url).then(function(manifest){
+			debugger;
+			console.info("manifest :::",manifest);
+		});
 	}
 
 </script>

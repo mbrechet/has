@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "has player",
   "main": "app/player.js",
-  "private":true,
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/mbrechet/has.git"
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mbrechet/has",
   "dependencies": {
-    "q": "^1.0.1"
+    "q": "^1.0.1",
+    "jquery-xml2json": "0.0.6"
   }
 }
