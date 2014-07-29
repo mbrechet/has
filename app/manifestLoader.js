@@ -37,7 +37,6 @@ ManifestLoader.prototype.onError = function(e) {
 
 
 ManifestLoader.prototype.processManifest = function(jsonManifest) {
-	debugger;
 	var manifest = {
 		type: jsonManifest.MPD.type,
 		minBufferTime: this.parseDuration(jsonManifest.MPD.minBufferTime),
