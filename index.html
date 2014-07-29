@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="style/page.css">
 	<script type="text/javascript" src="node_modules/q/q.js"></script>
 	<script type="text/javascript" src="node_modules/jquery-xml2json/src/xml2json.js"></script>
+	<script type="text/javascript" src="node_modules/mustache/mustache.js"></script>
 	<script type="text/javascript" src="app/manifestLoader.js"></script>
 	<script type="text/javascript" src="app/player.js"></script>
 </head>
@@ -19,15 +20,15 @@
 <br>
 
 <section id="manifestInfo">
+	
 	Liste des qualités vidéos
 	Liste des pistes audio
 	Liste des sous-titres
 	Url de la drm ?
-
 </section>
 
 
-<div class="infoZone">
+<div id="infoZone" class="infoZone">
 
 </div>
 <video class="videoZone" controls="true"></video>
@@ -39,11 +40,37 @@
 		var manifestLoader = new ManifestLoader();
 
 		manifestLoader.load(url).then(function(manifest){
-			debugger;
-			console.info("manifest :::",manifest);
+			console.info("manifest",manifest);
+			var template = document.getElementById("manifestInfos").innerHTML;
+			Mustache.parse(template);
+			var rendered = Mustache.render(template,manifest);
+			document.getElementById("infoZone").innerHTML = rendered;
+
 		});
 	}
 
+</script>
+
+
+<!-- ici on place des template pour les différent affichages -->
+<script id="manifestInfos" type="text/template">
+
+	type de flux : {{type}} <br/>
+	durée du flux : {{mediaPresentationDuration}}
+	<br/>
+	video <select id="videoQuality">
+		{{#videoSet.Representation}}
+		<option name="{{id}}" value="{{id}}">{{bandwidth}}</option>
+		{{/videoSet.Representation}}
+	</select>
+	<br/>
+	audio : <select id="audioQuality">
+			{{#audioSet.Representation}}
+			<option name="{{id}}" value="{{id}}">{{bandwidth}}</option>
+			{{/audioSet.Representation}}
+			</select>
+	<br/>
+	<button>Demarrer la lecture</button>
 </script>
 </body>
 </html>
