@@ -48,14 +48,13 @@ ManifestLoader.prototype.processManifest = function(jsonManifest) {
 	// ce player ne va géré qu'une seule périod
 	var period = Array.isArray(jsonManifest.MPD.Period)? jsonManifest.MPD.Period[0] : jsonManifest.MPD.Period;
 	var adaptationSets = Array.isArray(period.AdaptationSet) ? period.AdaptationSet : [period.AdaptationSet];
-
 	
 	for(var i=0; i<adaptationSets.length;i++){
 		var adaptationSet = adaptationSets[i];
 		if(adaptationSet.mimeType.indexOf("video")!=-1){
 			manifest.videoSet = adaptationSet;
 		}
-		if(adaptationSet.mimeType.indexOf("audio")!=1){
+		if(adaptationSet.mimeType.indexOf("audio")!=-1){
 			manifest.audioSet = adaptationSet;
 		}
 
