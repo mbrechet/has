@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="node_modules/jquery-xml2json/src/xml2json.js"></script>
 	<script type="text/javascript" src="node_modules/mustache/mustache.js"></script>
 	<script type="text/javascript" src="app/manifestLoader.js"></script>
+	<script type="text/javascript" src="app/bufferController.js"></script>
 	<script type="text/javascript" src="app/player.js"></script>
 </head>
 <body>
@@ -31,21 +32,30 @@
 <div id="infoZone" class="infoZone">
 
 </div>
-<video class="videoZone" controls="true"></video>
+<video class="videoZone" id="video" controls="true"></video>
 
 <script type="text/javascript">
 	function loadManifest(){
 		var url = document.getElementById("manifest").value;
 
-		var manifestLoader = new ManifestLoader();
+		// var manifestLoader = new ManifestLoader();
 
-		manifestLoader.load(url).then(function(manifest){
+		// manifestLoader.load(url).then(function(manifest){
+		// 	console.info("manifest",manifest);
+		// 	var template = document.getElementById("manifestInfos").innerHTML;
+		// 	Mustache.parse(template);
+		// 	debugger;
+		// 	var rendered = Mustache.render(template,manifest);
+		// 	document.getElementById("infoZone").innerHTML = rendered;
+
+		// });
+		var player = new Player(document.getElementById("video"));
+		player.load(url).then(function(manifest){
 			console.info("manifest",manifest);
 			var template = document.getElementById("manifestInfos").innerHTML;
 			Mustache.parse(template);
 			var rendered = Mustache.render(template,manifest);
 			document.getElementById("infoZone").innerHTML = rendered;
-
 		});
 	}
 
