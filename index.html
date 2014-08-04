@@ -35,6 +35,7 @@
 <video class="videoZone" id="video" controls="true"></video>
 
 <script type="text/javascript">
+	var palyer;
 	function loadManifest(){
 		var url = document.getElementById("manifest").value;
 
@@ -49,7 +50,7 @@
 		// 	document.getElementById("infoZone").innerHTML = rendered;
 
 		// });
-		var player = new Player(document.getElementById("video"));
+		player = new Player(document.getElementById("video"));
 		player.load(url).then(function(manifest){
 			console.info("manifest",manifest);
 			var template = document.getElementById("manifestInfos").innerHTML;
@@ -57,6 +58,13 @@
 			var rendered = Mustache.render(template,manifest);
 			document.getElementById("infoZone").innerHTML = rendered;
 		});
+	}
+
+	function play(){
+		var idVideoQuality = document.getElementById("videoQuality")[document.getElementById("videoQuality").selectedIndex].value;
+		var idAudioQuality =  document.getElementById("audioQuality")[document.getElementById("audioQuality").selectedIndex].value;
+		console.info(idVideoQuality,idAudioQuality);
+		player.play(idVideoQuality,idAudioQuality);
 	}
 
 </script>
@@ -80,7 +88,7 @@
 			{{/audioSet.Representation}}
 			</select>
 	<br/>
-	<button>Demarrer la lecture</button>
+	<button onclick="play()">Demarrer la lecture</button>
 </script>
 </body>
 </html>
