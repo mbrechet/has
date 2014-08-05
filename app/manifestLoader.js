@@ -37,60 +37,27 @@ ManifestLoader.prototype.onError = function(e) {
 
 
 ManifestLoader.prototype.processManifest = function(jsonManifest) {
-	var manifest = {
-		type: jsonManifest.MPD.type,
-		minBufferTime: this.parseDuration(jsonManifest.MPD.minBufferTime),
-		mediaPresentationDuration: this.parseDuration(jsonManifest.MPD.mediaPresentationDuration),
-		maxSegmentDuration: this.parseDuration(jsonManifest.MPD.maxSegmentDuration),
-		baseUrl: jsonManifest.MPD.baseUrl || this.baseUrl,
-	};
+
+	var manifest = new ManifestModel();
+	manifest.setType(jsonManifest.MPD.type);
+	manifest.setMinBufferTime(this.parseDuration(jsonManifest.MPD.minBufferTime));
+	manifest.setMediaPresentationduration(this.parseDuration(jsonManifest.MPD.mediaPresentationDuration));
+	manifest.setMaxSegmentDuration(this.parseDuration(jsonManifest.MPD.maxSegmentDuration));
+	manifest.setBaseUrl(jsonManifest.MPD.baseUrl || this.baseUrl);
 
 	// on va recréer les AdpatationSet video et audio
 	// ce player ne va géré qu'une seule périod
 	var period = Array.isArray(jsonManifest.MPD.Period)? jsonManifest.MPD.Period[0] : jsonManifest.MPD.Period;
 	var adaptationSets = Array.isArray(period.AdaptationSet) ? period.AdaptationSet : [period.AdaptationSet];
 	
-	// on définit des fonction associées à notre objet "model" manifest
-	var getRepresentation = function(type,id){
-		if(type ==="video"){
-			var videoRepresentation = Array.isArray(this.videoSet.Representation) ? this.videoSet.Representation : [this.videoSet.Representation];
-
-			if(id){
-				for (var i = 0; i <videoRepresentation.length; i++) {
-					if(videoRepresentation[i].id === id){
-						return videoRepresentation[i];
-					}
-				}
-				return null;
-			}else{
-				return videoRepresentation[0] || null;
-			}
-		}
-
-		if(type ==="audio"){
-			var audioRepresentation = Array.isArray(this.audioSet.Representation) ? this.audioSet.Representation : [this.audioSet.Representation];
-			if(id){
-				for (var j = 0; j <audioRepresentation.length; j++) {
-					if(audioRepresentation[j].id === id){
-						return audioRepresentation[j];
-					}
-				}
-				return null;
-			}else{
-				return audioRepresentation[0] || null;
-			}
-		}
-	};
-
-	manifest.getRepresentation = getRepresentation;
-
+	
 	for(var i=0; i<adaptationSets.length;i++){
 		var adaptationSet = adaptationSets[i];
 		if(adaptationSet.mimeType.indexOf("video")!=-1){
-			manifest.videoSet = adaptationSet;
+			manifest.setVideoSet(adaptationSet);
 		}
 		if(adaptationSet.mimeType.indexOf("audio")!=-1){
-			manifest.audioSet = adaptationSet;
+			manifest.setAudioSet(adaptationSet);
 		}
 
 		// here comes text
