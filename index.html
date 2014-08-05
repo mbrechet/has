@@ -37,7 +37,7 @@
 <script type="text/javascript">
 	var palyer;
 	player = new Player(document.getElementById("video"));
-	
+
 	function loadManifest(){
 		var url = document.getElementById("manifest").value;
 
@@ -66,13 +66,13 @@
 	type de flux : {{type}} <br/>
 	durée du flux : {{mediaPresentationDuration}}
 	<br/>
-	video <select id="videoQuality">
+	video <select id="videoQuality" onchange="play()">
 		{{#videoSet.Representation}}
 		<option name="{{id}}" value="{{id}}">{{bandwidth}}</option>
 		{{/videoSet.Representation}}
 	</select>
 	<br/>
-	audio : <select id="audioQuality">
+	audio : <select id="audioQuality" onchange="play()">
 			{{#audioSet.Representation}}
 			<option name="{{id}}" value="{{id}}">{{bandwidth}}</option>
 			{{/audioSet.Representation}}

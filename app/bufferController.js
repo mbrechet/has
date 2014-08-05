@@ -69,6 +69,14 @@ BufferController.prototype.getInitializationFragment = function() {
 
 };
 
+BufferController.prototype.updateRepresentation = function(representation) {
+	if(this.currentRepresentation.id != representation.id){
+		this.stop();
+		this.currentRepresentation = representation;
+		this.getInitializationFragment().then(this.appendToBuffer.bind(this)).then(this.start.bind(this));
+	}
+};
+
 BufferController.prototype.getNextFragment = function() {
 	if(this.started){
 		if(this.currentIndex < this.totalFragments){

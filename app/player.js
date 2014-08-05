@@ -51,12 +51,20 @@ Player.prototype.play = function(videoQualityId, audioQualityId) {
 		
 		//test du support avant l'initialization
 		if(this.videoModel.canPlayType(videoCodec) === "probably"){
-			this.videoController.initialize(this.mediasource.addSourceBuffer(videoCodec),videoRepresentation);
+			if(!this.videoController.buffer){
+				this.videoController.initialize(this.mediasource.addSourceBuffer(videoCodec),videoRepresentation);
+			}else{
+				this.videoController.updateRepresentation(videoRepresentation);
+			}
 		}else{
 			alert("impossible de lire le codec suivant "+ videoCodec);
 		}
 		if(this.videoModel.canPlayType(audioCodec) === "probably"){
-			this.audioController.initialize(this.mediasource.addSourceBuffer(audioCodec),audioRepresentation);
+			if(!this.audioController.buffer){
+				this.audioController.initialize(this.mediasource.addSourceBuffer(audioCodec),audioRepresentation);
+			}else{
+				this.audioController.updateRepresentation(audioRepresentation);
+			}
 		}else{
 			alert("impossible de lire le codec suivant "+ audioCodec);
 		}
