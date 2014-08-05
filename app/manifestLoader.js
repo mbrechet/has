@@ -24,8 +24,8 @@ ManifestLoader.prototype.onHaveManifest = function(data) {
 	
 	var jsonManifest = xml2json(data,{attrkey:"__proto__",charkey:"_",normalize:false});
 
-	// ici on construit un objet manifest qui nous intéresse  partir des élément reçus
-	
+	// ici on construit un objet Model manifest qui nous intéresse  partir des élément reçus
+	// todo extraire le model dans une classe à part
 
 	this.manifest  = this.processManifest(jsonManifest);
 	return this.manifest;
@@ -41,6 +41,7 @@ ManifestLoader.prototype.processManifest = function(jsonManifest) {
 		type: jsonManifest.MPD.type,
 		minBufferTime: this.parseDuration(jsonManifest.MPD.minBufferTime),
 		mediaPresentationDuration: this.parseDuration(jsonManifest.MPD.mediaPresentationDuration),
+		maxSegmentDuration: this.parseDuration(jsonManifest.MPD.maxSegmentDuration),
 		baseUrl: jsonManifest.MPD.baseUrl || this.baseUrl,
 	};
 

@@ -36,21 +36,11 @@
 
 <script type="text/javascript">
 	var palyer;
+	player = new Player(document.getElementById("video"));
+	
 	function loadManifest(){
 		var url = document.getElementById("manifest").value;
 
-		// var manifestLoader = new ManifestLoader();
-
-		// manifestLoader.load(url).then(function(manifest){
-		// 	console.info("manifest",manifest);
-		// 	var template = document.getElementById("manifestInfos").innerHTML;
-		// 	Mustache.parse(template);
-		// 	debugger;
-		// 	var rendered = Mustache.render(template,manifest);
-		// 	document.getElementById("infoZone").innerHTML = rendered;
-
-		// });
-		player = new Player(document.getElementById("video"));
 		player.load(url).then(function(manifest){
 			console.info("manifest",manifest);
 			var template = document.getElementById("manifestInfos").innerHTML;
