@@ -34,7 +34,6 @@ BufferController.prototype.stop = function() {
 
 
 BufferController.prototype.initialize = function(buffer, currentRepresentation) {
-	debugger;
 	this.buffer = buffer;
 	this.template = this.adaptationSet.SegmentTemplate;
 	this.currentIndex = parseInt(this.template.startNumber);
