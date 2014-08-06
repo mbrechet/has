@@ -1,34 +1,25 @@
 var ManifestLoader = function(){
-	this.manifest = null;
 	this.baseUrl = "";
 };
 
 ManifestLoader.prototype.load = function(/*url*/ url){
 	var xhr = new XMLHttpRequest();
 	var deferred = Q.defer();
-	this.manifest = null;
 	this.baseUrl = url.substring(0, url.lastIndexOf("/")+1);
 	console.info("baseUrl",this.baseUrl);
 	xhr.open("GET",url,true);
 	xhr.responseType =	"text";
 	xhr.onload = (function(){
-		this.onHaveManifest(xhr.response);
-		deferred.resolve(this.manifest);
+		deferred.resolve(this.onHaveManifest(xhr.response));
 	}).bind(this);
 	xhr.send();
 	return deferred.promise;
 };
 
 ManifestLoader.prototype.onHaveManifest = function(data) {
-	
-	
 	var jsonManifest = xml2json(data,{attrkey:"__proto__",charkey:"_",normalize:false});
-
 	// ici on construit un objet Model manifest qui nous intéresse  partir des élément reçus
-	// todo extraire le model dans une classe à part
-
-	this.manifest  = this.processManifest(jsonManifest);
-	return this.manifest;
+	return this.processManifest(jsonManifest);;
 };
 
 ManifestLoader.prototype.onError = function(e) {
